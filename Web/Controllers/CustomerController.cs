@@ -17,7 +17,7 @@ namespace Web.Controllers
                 { Id = 1, UserName = "Fana", Password = "fana123", FirstName = "Cristian", LastName = "Ninotti", Dni = 34732713, Email = "cristianninotti03@gmail.com", TypeCustomer = "admin"}
 
 
-
+                
 
             });
     }   }
