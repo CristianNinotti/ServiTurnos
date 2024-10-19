@@ -8,9 +8,9 @@ namespace Web.Controllers
     public class UserController : Controller
     {
         [HttpGet]
-        public JsonResult Get()
+        public IActionResult Get()
         {
-            return new JsonResult(new List<User> {
+            return Ok(new List<User> {
 
                             new User {
                                 Id =1, 

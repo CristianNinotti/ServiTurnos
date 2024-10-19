@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Enum\" />
-    <Folder Include="Interfaces\" />
+    <Folder Include="IRepositories\" />
   </ItemGroup>
 
 </Project>
