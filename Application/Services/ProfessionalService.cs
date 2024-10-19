@@ -1,10 +1,13 @@
 ﻿using Application.Interfaces;
+using Application.Models.Request;
+using Application.Models.Response;
 using Domain.Enum;
+using Domain.Interfaces;
 
 namespace Application.Services
 {
 
-    public class ProfessionalService : IProfessionalServices
+    public class ProfessionalService : IProfessionalService
     {
         private readonly IProfessionalRepository _professionalRepository;
 
@@ -17,7 +20,7 @@ namespace Application.Services
         {
             try
             {
-                var professionals = _professionalRepository.GetProfessionals();
+                var professionals = _professionalRepository.GetProfessional();
 
                 return ProfessionalsProfile.ToProfessionalResponse(professionals);
             }
@@ -40,9 +43,9 @@ namespace Application.Services
             return null;
         }
 
-        public List<ProfessionalResponse> GetProfessionalsByProfession(Profession profession)
+        public List<ProfessionalResponse> GetProfessionalByProfession(Profession profession)
         {
-            var professionals = _professionalRepository.GetMedicosByProfession(profession);
+            var professionals = _professionalRepository.GetProfessionalByProfession(profession);
 
             return ProfessionalsProfile.ToProfessionalResponse(professionals);
         }
@@ -84,7 +87,7 @@ namespace Application.Services
 
             return false;
         }
-    }
 
+    }
 }
 

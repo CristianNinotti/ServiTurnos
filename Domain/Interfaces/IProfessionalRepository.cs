@@ -3,10 +3,10 @@ using Domain.Enum;
 
 namespace Domain.Interfaces
 {
-    internal interface IProfessionalRepository
+    public interface IProfessionalRepository
     {
-        List<Professional> GetProfessionals();
-        Professional? GetProfessionalsById(int id);
+        List<Professional> GetProfessional();
+        Professional? GetProfessionalById(int id);
         List<Professional> GetProfessionalByProfession(Profession profession);
         void AddProfessional(Professional entity);
         void UpdateProfessional(Professional entity);

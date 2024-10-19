@@ -2,7 +2,7 @@
 
 namespace Application.Models.Response
 {
-    internal class ProfessionalResponse
+    public class ProfessionalResponse
     {
         public int Id { get; set; }
         public string UserName { get; set; } = string.Empty;

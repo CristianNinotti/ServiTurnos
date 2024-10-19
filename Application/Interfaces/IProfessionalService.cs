@@ -4,11 +4,11 @@ using Domain.Enum;
 
 namespace Application.Interfaces
 {
-    internal interface IProfessionalServices
+    public interface IProfessionalService
     {
         List<ProfessionalResponse> GetAllProfessional();
         ProfessionalResponse? GetProfessionalById(int id);
-        List<ProfessionalResponse> GetProfessionalsByProfession(Profession profession);
+        List<ProfessionalResponse> GetProfessionalByProfession(Profession profession);
         void CreateProfessional(ProfessionalRequest professional);
         bool UpdateProfessional(int id, ProfessionalRequest professional);
         bool DeleteProfessional(int id);

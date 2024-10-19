@@ -1,30 +1,33 @@
 ﻿using Domain.Entities;
 using Domain.Enum;
+using Domain.Interfaces;
+using Infrastructure.Context;
+
 
 namespace Infrastructure.Data;
 
 public class ProfessionalRepository : IProfessionalRepository
 {
-    private readonly DbContext _context;
+    private readonly ServiTurnosDbContext _context;
 
-    public ProfessionalRepository(DbContext context)
+    public ProfessionalRepository(ServiTurnosDbContext context)
     {
         _context = context;
     }
 
-    public List<Professional> GetProfessionals()
+    public List<Professional> GetProfessional()
     {
-        return _context.Professionals.ToList();
+        return _context.Professional.ToList();
     }
 
     public Professional? GetProfessionalById(int id)
     {
-        return _context.Professionals.FirstOrDefault(x => x.Id.Equals(id));
+        return _context.Professional.FirstOrDefault(x => x.Id.Equals(id));
     }
 
-    public List<Professional> GetProfessionalsByProfession(Profession profession)
+    public List<Professional> GetProfessionalByProfession(Profession profession)
     {
-        return _context.Professionals.Where(professional => professional.Profession == profession).ToList();
+        return _context.Professional.Where(professional => professional.Profession == profession).ToList();
     }
 
     public void AddProfessional(Professional entity)
@@ -35,13 +38,14 @@ public class ProfessionalRepository : IProfessionalRepository
 
     public void UpdateProfessional(Professional entity)
     {
-        _context.Professionals.Update(entity);
+        _context.Professional.Update(entity);
         _context.SaveChanges();
     }
 
     public void DeleteProfessional(Professional professional)
     {
-        _context.Professionals.Remove(professional);
+        _context.Professional.Remove(professional);
         _context.SaveChanges();
     }
+
 }
