@@ -57,6 +57,11 @@ builder.Services.AddScoped<IProfessionalService, ProfessionalService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 var app = builder.Build();
 
+
+//AutoMapper
+builder.Services.AddAutoMapper(typeof(Program));
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

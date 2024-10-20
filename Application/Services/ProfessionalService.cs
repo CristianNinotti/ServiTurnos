@@ -1,8 +1,10 @@
 ﻿using Application.Interfaces;
+using Application.Mappings;
 using Application.Models.Request;
 using Application.Models.Response;
 using Domain.Enum;
 using Domain.Interfaces;
+
 
 namespace Application.Services
 {
@@ -26,7 +28,7 @@ namespace Application.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error en la clase {nameof(ProfessionalService)} - STACKTRACE: {e.StackTrace} - MESSAGE {e.Message}");
+                Console.WriteLine($"Hay un error en la clase");
                 throw new Exception(e.Message);
             }
         }

@@ -4,7 +4,6 @@ using Application.Models.Request;
 using Application.Models.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.Contracts;
 namespace Web.Controllers;
 
 [Route("api/professional")]
