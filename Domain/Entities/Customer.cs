@@ -3,8 +3,7 @@
 
     public class Customer : User
     {
-        // public List<Meet>? Meetings { get; set; }
-        
+        public List<Meeting> Meetings { get; set; } = new List<Meeting>();
     }
 }
 

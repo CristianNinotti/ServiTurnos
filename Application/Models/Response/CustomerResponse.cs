@@ -1,9 +1,14 @@
 ﻿using Domain.Entities;
 using Domain.Enum;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Application.Models.Response
 {
-    public class ProfessionalResponse
+    public class CustomerResponse
     {
         public int Id { get; set; }
         public string UserName { get; set; } = string.Empty;
@@ -12,14 +17,7 @@ namespace Application.Models.Response
         public string LastName { get; set; } = string.Empty;
         public int Dni { get; set; }
         public string Email { get; set; } = string.Empty;
-        public int Fee { get; set; }
         public List<Meeting> Meetings { get; set; } = new List<Meeting>();
-        public Profession Profession { get; set; }
         public bool TypeCustomer { get; set; }
-
-        // public float Calification {  get; set; }
     }
 }
-
-
-

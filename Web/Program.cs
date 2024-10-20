@@ -59,11 +59,15 @@ internal class Program
             }
         );
         */
+
+        builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+
         builder.Services.AddScoped<IProfessionalRepository, ProfessionalRepository>();
         builder.Services.AddScoped<IProfessionalService, ProfessionalService>();
-        builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
         builder.Services.AddScoped<IMeetingService, MeetingService>();
         builder.Services.AddScoped<IMeetingRepository, MeetingRepository>();
+        builder.Services.AddScoped<ICustomerService, CustomerService>();
+        builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
         var app = builder.Build();
 
