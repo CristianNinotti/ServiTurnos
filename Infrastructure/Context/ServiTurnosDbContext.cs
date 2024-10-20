@@ -15,3 +15,4 @@ namespace Infrastructure.Context
         //public DbSet<Meet> Meetings { get; set; }
     }
 }
+

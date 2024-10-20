@@ -1,27 +1,34 @@
 using Application.Interfaces;
 using Application.Services;
 using Domain.Interfaces;
+using Infrastructure.Context;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(setupAction =>
+internal class Program
 {
-    setupAction.AddSecurityDefinition("ExampleServiTurnos", new OpenApiSecurityScheme()
+    private static void Main(string[] args)
     {
-        Type = SecuritySchemeType.Http,
-        Scheme = "Bearer",
-        Description = "Paste the token to login."
-    });
+        var builder = WebApplication.CreateBuilder(args);
 
-    setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
+        builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
+
+        builder.Services.AddDbContext<ServiTurnosDbContext>(x => x.UseSqlite(builder.Configuration.GetConnectionString("ServiTurnosDbConnection")));
+        //builder.Services.Configure<AutenticacionServiceOptions>(builder.Configuration.GetSection("AutenticacionServiceOptions"));
+
+        builder.Services.AddSwaggerGen(setupAction =>
+        {
+            setupAction.AddSecurityDefinition("ExampleApiBearerAuth", new OpenApiSecurityScheme()
+            {
+                Type = SecuritySchemeType.Http,
+                Scheme = "Bearer",
+                Description = "Paste the token to login."
+            });
+
+            setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
                     new OpenApiSecurityScheme
@@ -29,50 +36,49 @@ builder.Services.AddSwaggerGen(setupAction =>
                         Reference = new OpenApiReference
                         {
                             Type = ReferenceType.SecurityScheme,
-                            Id = "ExampleServiTurnos"
+                            Id = "ExampleApiBearerAuth"
                         }
                     },
                     new List<string>()
                 }
             });
-});
+        });
+        /*
+        builder.Services.AddAuthentication("Bearer")
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration["AutenticacionServiceOptions:Issuer"],
+                    ValidAudience = builder.Configuration["AutenticacionServiceOptions:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["AutenticacionServiceOptions:SecretForKey"]!))
+                };
+            }
+        );
+        */
+        builder.Services.AddScoped<IProfessionalRepository, ProfessionalRepository>();
+        builder.Services.AddScoped<IProfessionalService, ProfessionalService>();
+        builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
-/*builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new()
+        var app = builder.Build();
+
+        if (app.Environment.IsDevelopment())
         {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["AutenticacionServiceOptions:Issuer"],
-            ValidAudience = builder.Configuration["AutenticacionServiceOptions:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["AutenticacionServiceOptions:SecretForKey"]!))
-        };
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+
+        app.UseHttpsRedirection();
+
+        app.UseAuthentication();
+
+        app.UseAuthorization();
+
+        app.MapControllers();
+
+        app.Run();
     }
-);
-*/
-builder.Services.AddScoped<IProfessionalRepository, ProfessionalRepository>();
-builder.Services.AddScoped<IProfessionalService, ProfessionalService>();
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-var app = builder.Build();
-
-
-//AutoMapper
-builder.Services.AddAutoMapper(typeof(Program));
-
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
