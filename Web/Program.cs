@@ -1,11 +1,14 @@
 using Application.Interfaces;
+using Application.Models.Helpers;
 using Application.Services;
 using Domain.Interfaces;
 using Infrastructure.Context;
 using Infrastructure.Data;
-using Microsoft.AspNetCore.Authentication;
+using Infrastructure.ThirdServices;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 internal class Program
 {
@@ -17,15 +20,15 @@ internal class Program
         builder.Services.AddEndpointsApiExplorer();
 
         builder.Services.AddDbContext<ServiTurnosDbContext>(x => x.UseSqlite(builder.Configuration.GetConnectionString("ServiTurnosDbConnection")));
-        //builder.Services.Configure<AutenticacionServiceOptions>(builder.Configuration.GetSection("AutenticacionServiceOptions"));
+        builder.Services.Configure<AuthenticationServiceOptions>(builder.Configuration.GetSection("AuthenticationServiceOptions"));
 
         builder.Services.AddSwaggerGen(setupAction =>
         {
-            setupAction.AddSecurityDefinition("ExampleApiBearerAuth", new OpenApiSecurityScheme()
+            setupAction.AddSecurityDefinition("ServiTurnosApiBearerAuth", new OpenApiSecurityScheme()
             {
                 Type = SecuritySchemeType.Http,
                 Scheme = "Bearer",
-                Description = "Paste the token to login."
+                Description = "Please, paste the token to login for use all endpoints."
             });
 
             setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -36,14 +39,14 @@ internal class Program
                         Reference = new OpenApiReference
                         {
                             Type = ReferenceType.SecurityScheme,
-                            Id = "ExampleApiBearerAuth"
+                            Id = "ServiTurnosApiBearerAuth"
                         }
                     },
                     new List<string>()
                 }
             });
         });
-        /*
+        
         builder.Services.AddAuthentication("Bearer")
             .AddJwtBearer(options =>
             {
@@ -52,13 +55,13 @@ internal class Program
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = builder.Configuration["AutenticacionServiceOptions:Issuer"],
-                    ValidAudience = builder.Configuration["AutenticacionServiceOptions:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["AutenticacionServiceOptions:SecretForKey"]!))
+                    ValidIssuer = builder.Configuration["AuthenticationServiceOptions:Issuer"],
+                    ValidAudience = builder.Configuration["AuthenticationServiceOptions:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["AuthenticationServiceOptions:SecretForKey"]!))
                 };
             }
         );
-        */
+        
 
         builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
