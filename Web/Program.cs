@@ -68,6 +68,8 @@ internal class Program
         builder.Services.AddScoped<IMeetingRepository, MeetingRepository>();
         builder.Services.AddScoped<ICustomerService, CustomerService>();
         builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+        builder.Services.AddScoped<ISuperAdminService, SuperAdminService>();
+        builder.Services.AddScoped<ISuperAdminRepository, SuperAdminRepository>();
 
         var app = builder.Build();
 

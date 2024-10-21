@@ -12,6 +12,8 @@ namespace Infrastructure.Context
         public DbSet<Professional> Professional { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
+
+        public DbSet<SuperAdmin> SuperAdmins { get; set; }
     }
 }
 
