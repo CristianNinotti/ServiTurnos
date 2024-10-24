@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data;
 
@@ -20,7 +21,10 @@ public class MeetingRepository : IMeetingRepository
 
     public Meeting? GetMeetingById(int id)
     {
-        return _context.Meetings.FirstOrDefault(x => x.Id == id);
+        return _context.Meetings
+            .Include(x => x.Customer)
+            .Include(x => x.Professional)
+            .FirstOrDefault(x => x.Id == id);
     }
 
     public List<Meeting> GetMeetingsByProfessional(int professionalId)
