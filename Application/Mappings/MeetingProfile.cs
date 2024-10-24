@@ -1,6 +1,7 @@
 ﻿using Application.Models.Request;
 using Application.Models.Response;
 using Domain.Entities;
+using Domain.Interfaces;
 
 namespace Application.Mappings
 {
@@ -29,18 +30,24 @@ namespace Application.Mappings
             return responses;
         }
 
-        
-        public static Meeting ToMeetingEntity(MeetingRequest meetingRequest)
+
+        public static Meeting ToMeetingEntity(MeetingRequest meetingRequest, ICustomerRepository customerRepository, IProfessionalRepository professionalRepository)
         {
+            // Busca el customer por Id con su metodo
+            var customer = customerRepository.GetCustomerById(meetingRequest.CustomerId);
+
+            // Busca el professional por Id con su metodo
+            var professional = professionalRepository.GetProfessionalById(meetingRequest.ProfessionalId);
+
             return new Meeting
             {
                 Date = meetingRequest.Date,
-                Customer = new Customer { Id = meetingRequest.CustomerId }, 
-                Professional = new Professional { Id = meetingRequest.ProfessionalId } // acá creamos un nuevo objeto Professional
+                Customer = customer ?? throw new Exception($"Customer with ID {meetingRequest.CustomerId} not found."), // Revisar esta excepcion
+                Professional = professional ?? throw new Exception($"Professional with ID {meetingRequest.ProfessionalId} not found.") // Revisar esta excepcion
             };
         }
 
-        
+
         public static void ToMeetingEntityUpdate(Meeting meetingEntity, MeetingRequest meetingRequest)
         {
             meetingEntity.Date = meetingRequest.Date;

@@ -9,10 +9,16 @@ namespace Application.Services
     public class MeetingService : IMeetingService
     {
         private readonly IMeetingRepository _meetingRepository;
+        private readonly ICustomerRepository _customerRepository;  // Esta es para poder manejar el pasaje de datos de Customer
+        private readonly IProfessionalRepository _professionalRepository;  // Esta para poder manejar el pasaje de datos de Professional
 
-        public MeetingService(IMeetingRepository meetingRepository)
+        public MeetingService(IMeetingRepository meetingRepository,
+                              ICustomerRepository customerRepository,
+                              IProfessionalRepository professionalRepository)
         {
             _meetingRepository = meetingRepository;
+            _customerRepository = customerRepository;
+            _professionalRepository = professionalRepository;
         }
 
         public List<MeetingResponse> GetAllMeetings()
@@ -20,7 +26,7 @@ namespace Application.Services
             try
             {
                 var meetings = _meetingRepository.GetMeetings();
-                return MeetingProfile.ToMeetingResponse(meetings); 
+                return MeetingProfile.ToMeetingResponse(meetings);
             }
             catch (Exception e)
             {
@@ -34,7 +40,7 @@ namespace Application.Services
             var meeting = _meetingRepository.GetMeetingById(id);
             if (meeting != null)
             {
-                return MeetingProfile.ToMeetingResponse(meeting); 
+                return MeetingProfile.ToMeetingResponse(meeting);
             }
             return null;
         }
@@ -42,18 +48,19 @@ namespace Application.Services
         public List<MeetingResponse> GetMeetingsByProfessional(int professionalId)
         {
             var meetings = _meetingRepository.GetMeetingsByProfessional(professionalId);
-            return MeetingProfile.ToMeetingResponse(meetings); 
+            return MeetingProfile.ToMeetingResponse(meetings);
         }
 
         public List<MeetingResponse> GetMeetingsByCustomer(int customerId)
         {
             var meetings = _meetingRepository.GetMeetingsByCustomer(customerId);
-            return MeetingProfile.ToMeetingResponse(meetings); 
+            return MeetingProfile.ToMeetingResponse(meetings);
         }
 
-        public void CreateMeeting(MeetingRequest meeting)
+        public void CreateMeeting(MeetingRequest meetingRequest)
         {
-            var meetingEntity = MeetingProfile.ToMeetingEntity(meeting); 
+            // Aca le pasamos las 3 cosas
+            var meetingEntity = MeetingProfile.ToMeetingEntity(meetingRequest, _customerRepository, _professionalRepository);
             _meetingRepository.AddMeeting(meetingEntity);
         }
 
@@ -63,7 +70,7 @@ namespace Application.Services
 
             if (meetingEntity != null)
             {
-                MeetingProfile.ToMeetingEntityUpdate(meetingEntity, meeting); 
+                MeetingProfile.ToMeetingEntityUpdate(meetingEntity, meeting);
                 _meetingRepository.UpdateMeeting(meetingEntity);
                 return true;
             }
