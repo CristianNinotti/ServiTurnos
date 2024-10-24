@@ -58,15 +58,51 @@ namespace Application.Services
 
             if (superAdminEntity != null)
             {
-                SuperAdminProfile.ToSuperAdminEntityUpdate(superAdminEntity, superAdmin);
+                
+                if (!string.IsNullOrEmpty(superAdmin.UserName) && superAdmin.UserName != "string")
+                {
+                    superAdminEntity.UserName = superAdmin.UserName;
+                }
+
+                if (!string.IsNullOrEmpty(superAdmin.Password) && superAdmin.Password != "string")
+                {
+                    superAdminEntity.Password = superAdmin.Password;
+                }
+
+                if (!string.IsNullOrEmpty(superAdmin.FirstName) && superAdmin.FirstName != "string")
+                {
+                    superAdminEntity.FirstName = superAdmin.FirstName;
+                }
+
+                if (!string.IsNullOrEmpty(superAdmin.LastName) && superAdmin.LastName != "string")
+                {
+                    superAdminEntity.LastName = superAdmin.LastName;
+                }
+
+                if (superAdmin.Dni != 0)
+                {
+                    superAdminEntity.Dni = superAdmin.Dni;
+                }
+
+                if (!string.IsNullOrEmpty(superAdmin.Email) && superAdmin.Email != "string")
+                {
+                    superAdminEntity.Email = superAdmin.Email;
+                }
+
+                
+                if (superAdmin.TypeCustomer != superAdminEntity.TypeCustomer)
+                {
+                    superAdminEntity.TypeCustomer = superAdmin.TypeCustomer;
+                }
 
                 _superAdminRepository.UpdateSuperAdmin(superAdminEntity);
-
                 return true;
             }
 
             return false;
         }
+
+
 
         public bool DeleteSuperAdmin(int id)
         {
