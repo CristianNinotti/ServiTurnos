@@ -11,7 +11,6 @@ namespace Application.Models.Request
         public int Dni { get; set; } 
         public string Email { get; set; } = string.Empty;
         public int Fee { get; set; }
-        public List<Meeting> Meetings { get; set; } = new List<Meeting>();
         public int Profession { get; set; }
         public bool TypeCustomer { get; set; }
 

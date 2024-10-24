@@ -59,17 +59,50 @@ namespace Application.Services
             _professionalRepository.AddProfessional(professionalEntity);
         }
 
-
         public bool UpdateProfessional(int id, ProfessionalRequest professional)
         {
             var professionalEntity = _professionalRepository.GetProfessionalById(id);
 
             if (professionalEntity != null)
             {
-                ProfessionalsProfile.ToProfessionalEntityUpdate(professionalEntity, professional);
+
+                if (!string.IsNullOrEmpty(professional.UserName) && professional.UserName != "string")
+                {
+                    professionalEntity.UserName = professional.UserName;
+                }
+
+                if (!string.IsNullOrEmpty(professional.Password) && professional.Password != "string")
+                {
+                    professionalEntity.Password = professional.Password;
+                }
+
+                if (!string.IsNullOrEmpty(professional.FirstName) && professional.FirstName != "string")
+                {
+                    professionalEntity.FirstName = professional.FirstName;
+                }
+
+                if (!string.IsNullOrEmpty(professional.LastName) && professional.LastName != "string")
+                {
+                    professionalEntity.LastName = professional.LastName;
+                }
+
+                if (professional.Dni != 0)
+                {
+                    professionalEntity.Dni = professional.Dni;
+                }
+
+                if (!string.IsNullOrEmpty(professional.Email) && professional.Email != "string")
+                {
+                    professionalEntity.Email = professional.Email;
+                }
+
+
+                if (professional.TypeCustomer != professionalEntity.TypeCustomer)
+                {
+                    professionalEntity.TypeCustomer = professional.TypeCustomer;
+                }
 
                 _professionalRepository.UpdateProfessional(professionalEntity);
-
                 return true;
             }
 
