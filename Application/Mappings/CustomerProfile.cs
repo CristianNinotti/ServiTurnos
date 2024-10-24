@@ -1,5 +1,6 @@
 ﻿using Application.Models.Request;
 using Application.Models.Response;
+using Domain.Entities;
 using DomainEntity = Domain.Entities;
 
 namespace Application.Mappings
@@ -33,10 +34,12 @@ namespace Application.Mappings
             return new CustomerResponse()
             {
                 Id = customer.Id,
+                UserName = customer.UserName,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Dni = customer.Dni,
-                Email = customer.Email
+                Email = customer.Email,
+                TypeCustomer = customer.TypeCustomer
             };
         }
 
@@ -45,10 +48,12 @@ namespace Application.Mappings
             return customers.Select(c => new CustomerResponse
             {
                 Id = c.Id,
+                UserName = c.UserName,
                 FirstName = c.FirstName,
                 LastName = c.LastName,
                 Dni = c.Dni,
-                Email = c.Email
+                Email = c.Email,
+                TypeCustomer = c.TypeCustomer
 
             }).ToList();
         }

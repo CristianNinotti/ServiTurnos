@@ -40,12 +40,14 @@ namespace Application.Mappings
                 return new ProfessionalResponse()
                 {
                     Id = professional.Id,
+                    UserName = professional.UserName,
                     FirstName = professional.FirstName,
                     LastName = professional.LastName,
                     Fee = professional.Fee,
                     Profession = professional.Profession,
                     Dni = professional.Dni,
-                    Email = professional.Email
+                    Email = professional.Email,
+                    TypeCustomer = professional.TypeCustomer
                     
                 };
             }
@@ -55,12 +57,15 @@ namespace Application.Mappings
                 return professional.Select(p => new ProfessionalResponse
                 {
                     Id = p.Id,
+                    UserName = p.UserName,
                     FirstName = p.FirstName,
                     LastName = p.LastName,
-                    Dni = p.Dni,
                     Fee = p.Fee,
                     Profession = p.Profession,
-                    Email = p.Email
+                    Dni = p.Dni,
+                    Email = p.Email,
+                    TypeCustomer = p.TypeCustomer
+
                 }).ToList();
             }
         }
