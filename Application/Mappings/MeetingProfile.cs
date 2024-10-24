@@ -31,19 +31,13 @@ namespace Application.Mappings
         }
 
 
-        public static Meeting ToMeetingEntity(MeetingRequest meetingRequest, ICustomerRepository customerRepository, IProfessionalRepository professionalRepository)
+        public static Meeting ToMeetingEntity(MeetingRequest meetingRequest, Customer customer, Professional professional)
         {
-            // Busca el customer por Id con su metodo
-            var customer = customerRepository.GetCustomerById(meetingRequest.CustomerId);
-
-            // Busca el professional por Id con su metodo
-            var professional = professionalRepository.GetProfessionalById(meetingRequest.ProfessionalId);
-
             return new Meeting
             {
                 Date = meetingRequest.Date,
-                Customer = customer ?? throw new Exception($"Customer with ID {meetingRequest.CustomerId} not found."), // Revisar esta excepcion
-                Professional = professional ?? throw new Exception($"Professional with ID {meetingRequest.ProfessionalId} not found.") // Revisar esta excepcion
+                Customer = customer ?? throw new Exception("Customer not found."),
+                Professional = professional ?? throw new Exception("Professional not found.")
             };
         }
 

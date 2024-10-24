@@ -59,8 +59,24 @@ namespace Application.Services
 
         public void CreateMeeting(MeetingRequest meetingRequest)
         {
-            // Aca le pasamos las 3 cosas
-            var meetingEntity = MeetingProfile.ToMeetingEntity(meetingRequest, _customerRepository, _professionalRepository);
+            var customer = _customerRepository.GetCustomerById(meetingRequest.CustomerId);
+            var professional = _professionalRepository.GetProfessionalById(meetingRequest.ProfessionalId);
+
+
+            if (customer == null)
+            {
+                throw new Exception($"Customer with ID {meetingRequest.CustomerId} not found.");
+            }
+
+            if (professional == null)
+            {
+                throw new Exception($"Professional with ID {meetingRequest.ProfessionalId} not found.");
+            }
+
+
+            var meetingEntity = MeetingProfile.ToMeetingEntity(meetingRequest, customer, professional);
+
+
             _meetingRepository.AddMeeting(meetingEntity);
         }
 
