@@ -17,7 +17,7 @@ namespace Web.Controllers
         }
 
         [HttpPost("authenticate")]
-        public ActionResult<string> Authenticate([FromBody] AuthenticationRequest authenticationRequest)
+        public IActionResult Authenticate([FromBody] AuthenticationRequest authenticationRequest)
         {
             string token = _customAuthenticationService.Authenticate(authenticationRequest);
 
