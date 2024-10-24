@@ -48,28 +48,30 @@ namespace Application.Mappings
         }
 
 
-        public static void ToMeetingEntityUpdate(Meeting meetingEntity, MeetingRequest meetingRequest)
+        public static void ToMeetingEntityUpdate(Meeting meetingEntity, MeetingRequest meetingRequest, ICustomerRepository customerRepository, IProfessionalRepository professionalRepository)
         {
             meetingEntity.Date = meetingRequest.Date;
 
             
-            if (meetingEntity.Customer != null)
+            var customer = customerRepository.GetCustomerById(meetingRequest.CustomerId);
+            if (customer != null)
             {
-                meetingEntity.Customer.Id = meetingRequest.CustomerId;
+                meetingEntity.Customer = customer;
             }
             else
             {
-                meetingEntity.Customer = new Customer { Id = meetingRequest.CustomerId }; 
+                throw new Exception($"Customer with ID {meetingRequest.CustomerId} not found.");
             }
 
             
-            if (meetingEntity.Professional != null)
+            var professional = professionalRepository.GetProfessionalById(meetingRequest.ProfessionalId);
+            if (professional != null)
             {
-                meetingEntity.Professional.Id = meetingRequest.ProfessionalId;
+                meetingEntity.Professional = professional;
             }
             else
             {
-                meetingEntity.Professional = new Professional { Id = meetingRequest.ProfessionalId }; 
+                throw new Exception($"Professional with ID {meetingRequest.ProfessionalId} not found.");
             }
         }
     }

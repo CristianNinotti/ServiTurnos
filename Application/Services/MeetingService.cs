@@ -70,7 +70,14 @@ namespace Application.Services
 
             if (meetingEntity != null)
             {
-                MeetingProfile.ToMeetingEntityUpdate(meetingEntity, meeting);
+                // Asegúrate de que tienes acceso a los repositorios de Customer y Professional en tu servicio
+                var customerRepository = _customerRepository; // Asegúrate de tener este repositorio inyectado
+                var professionalRepository = _professionalRepository; // Asegúrate de tener este repositorio inyectado
+
+                // Actualiza la entidad Meeting usando los repositorios
+                MeetingProfile.ToMeetingEntityUpdate(meetingEntity, meeting, customerRepository, professionalRepository);
+
+                // Llama al repositorio para actualizar la entidad
                 _meetingRepository.UpdateMeeting(meetingEntity);
                 return true;
             }
