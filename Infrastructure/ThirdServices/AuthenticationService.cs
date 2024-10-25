@@ -79,10 +79,10 @@ public class AuthenticationService : IAuthenticationService
         var credentials = new SigningCredentials(securityPassword, SecurityAlgorithms.HmacSha256);
 
         var claimsForToken = new List<Claim>();
-        claimsForToken.Add(new Claim("sub", user.Id.ToString()));
-        claimsForToken.Add(new Claim("given_name", user.FirstName));
-        claimsForToken.Add(new Claim("family_name", user.LastName));
-        claimsForToken.Add(new Claim("TypeCustomer", user.TypeCustomer)); // Aca agregamos el tipo de usuario al token
+        claimsForToken.Add(new Claim("Id", user.Id.ToString()));
+        claimsForToken.Add(new Claim("Name", user.FirstName));
+        claimsForToken.Add(new Claim("LastName", user.LastName));
+        claimsForToken.Add(new Claim("TypeCustomer", user.TypeCustomer));
 
         var jwtSecurityToken = new JwtSecurityToken(
             _options.Issuer,
