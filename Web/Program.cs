@@ -70,6 +70,22 @@ internal class Program
             options.AddPolicy("CustomerOnly", policy => policy.RequireClaim("TypeCustomer", "Customer"));
             options.AddPolicy("ProfessionalOnly", policy => policy.RequireClaim("TypeCustomer", "Professional"));
             options.AddPolicy("SuperAdminOnly", policy => policy.RequireClaim("TypeCustomer", "SuperAdmin"));
+
+            options.AddPolicy("CustomerOrSuperAdmin", policy =>
+            policy.RequireAssertion(context =>
+            context.User.HasClaim("TypeCustomer", "Customer") ||
+            context.User.HasClaim("TypeCustomer", "SuperAdmin")));
+
+            options.AddPolicy("ProfessionalOrSuperAdmin", policy =>
+            policy.RequireAssertion(context =>
+                context.User.HasClaim("TypeCustomer", "Professional") ||
+                context.User.HasClaim("TypeCustomer", "SuperAdmin")));
+
+            options.AddPolicy("CustomerOrProfessionalOrSuperAdmin", policy =>
+            policy.RequireAssertion(context =>
+                  context.User.HasClaim("TypeCustomer", "Customer") ||
+                  context.User.HasClaim("TypeCustomer", "Professional") ||
+                  context.User.HasClaim("TypeCustomer", "SuperAdmin")));
         });
 
 

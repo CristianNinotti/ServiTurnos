@@ -12,7 +12,7 @@ namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ServiTurnosDbContext))]
     [Migration("20241024192138_test")]
-    partial class test
+    partial class Test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

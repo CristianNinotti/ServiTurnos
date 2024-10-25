@@ -20,7 +20,7 @@ public class ProfessionalController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Policy = "ProfessionalOnly")]
+    [Authorize(Policy = "ProfessionalOrSuperAdmin")]
     public IActionResult GetAllProfessional()
     {
         var response = _professionalService.GetAllProfessional();
@@ -34,7 +34,7 @@ public class ProfessionalController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize(Policy = "ProfessionalOnly")]
+    [Authorize(Policy = "ProfessionalOrSuperAdmin")]
     public ActionResult<ProfessionalResponse?> GetProfessionalById([FromRoute] int id)
     {
         var response = _professionalService.GetProfessionalById(id);
@@ -48,7 +48,7 @@ public class ProfessionalController : ControllerBase
     }
 
     [HttpGet("profession")]
-    [Authorize(Policy = "ProfessionalOnly")]
+    [Authorize(Policy = "ProfessionalOrSuperAdmin")]
     public IActionResult GetProfessionalByProfession(Profession profession)
     {
         return Ok(_professionalService.GetProfessionalByProfession(profession));
@@ -62,15 +62,14 @@ public class ProfessionalController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize(Policy = "ProfessionalOnly")]
+    [Authorize(Policy = "ProfessionalOrSuperAdmin")]
     public ActionResult<bool> UpdateProfessional([FromRoute] int id, [FromBody] ProfessionalRequest professional)
     {
         return Ok(_professionalService.UpdateProfessional(id, professional));
     }
 
     [HttpDelete("{id}")]
-    [Authorize(Policy = "ProfessionalOnly")]
-    [Authorize(Policy = "SuperAdminOnly")]
+    [Authorize(Policy = "ProfessionalOrSuperAdmin")]
     public ActionResult<bool> DeleteProfessional([FromRoute] int id)
     {
         return Ok(_professionalService.DeleteProfessional(id));
