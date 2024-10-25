@@ -20,12 +20,6 @@ namespace Application.Mappings
             };
         }
 
-        public static void ToCustomerEntityUpdate(DomainEntity.Customer customer, CustomerRequest request)
-        {
-            customer.FirstName = request.FirstName;
-            customer.LastName = request.LastName;
-            customer.Dni = request.Dni;
-        }
 
         public static CustomerResponse ToCustomerResponse(DomainEntity.Customer customer)
         {

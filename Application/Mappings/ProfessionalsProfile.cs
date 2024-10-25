@@ -26,14 +26,7 @@ namespace Application.Mappings
 
         }
 
-        /*public static void ToProfessionalEntityUpdate(DomainEntity.Professional professional, ProfessionalRequest request)
-        {
-            professional.FirstName = request.FirstName;
-            professional.LastName = request.LastName;
-            professional.Dni = request.Dni;
-            professional.Fee = request.Fee;
-            professional.Profession = (Profession)request.Profession;
-        }*/
+
 
         public static ProfessionalResponse ToProfessionalResponse(DomainEntity.Professional professional)
         {
