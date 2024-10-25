@@ -14,7 +14,7 @@ namespace Application.Models.Request
         public int Profession { get; set; }
         
 
-        // public float Calification {  get; set; }
+        
     }
 
 }

@@ -26,19 +26,20 @@ namespace Application.Mappings
 
         }
 
-        public static void ToProfessionalEntityUpdate(DomainEntity.Professional professional, ProfessionalRequest request)
+        /*public static void ToProfessionalEntityUpdate(DomainEntity.Professional professional, ProfessionalRequest request)
         {
             professional.FirstName = request.FirstName;
             professional.LastName = request.LastName;
             professional.Dni = request.Dni;
             professional.Fee = request.Fee;
             professional.Profession = (Profession)request.Profession;
-        }
+        }*/
 
         public static ProfessionalResponse ToProfessionalResponse(DomainEntity.Professional professional)
         {
             return new ProfessionalResponse()
             {
+                UserName = professional.UserName,
                 Id = professional.Id,
                 FirstName = professional.FirstName,
                 LastName = professional.LastName,
@@ -54,6 +55,7 @@ namespace Application.Mappings
         {
             return professional.Select(p => new ProfessionalResponse
             {
+                UserName = p.UserName,
                 Id = p.Id,
                 FirstName = p.FirstName,
                 LastName = p.LastName,

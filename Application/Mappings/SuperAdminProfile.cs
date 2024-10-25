@@ -20,17 +20,13 @@ namespace Application.Mappings
             };
         }
 
-        public static void ToSuperAdminEntityUpdate(DomainEntity.SuperAdmin superAdmin, SuperAdminRequest request)
-        {
-            superAdmin.FirstName = request.FirstName;
-            superAdmin.LastName = request.LastName;
-            superAdmin.Dni = request.Dni;
-        }
+        
 
         public static SuperAdminResponse ToSuperAdminResponse(DomainEntity.SuperAdmin superAdmin)
         {
             return new SuperAdminResponse()
             {
+                UserName = superAdmin.UserName,
                 Id = superAdmin.Id,
                 FirstName = superAdmin.FirstName,
                 LastName = superAdmin.LastName,
@@ -43,6 +39,7 @@ namespace Application.Mappings
         {
             return superAdmins.Select(c => new SuperAdminResponse
             {
+                UserName = c.UserName,
                 Id = c.Id,
                 FirstName = c.FirstName,
                 LastName = c.LastName,

@@ -16,7 +16,7 @@ namespace Application.Mappings
                 LastName = request.LastName,
                 Dni = request.Dni,
                 Email = request.Email,
-                TypeCustomer = "Customer" // Asegurarse de que el UserType se setee correctamente
+                TypeCustomer = "Customer" 
             };
         }
 
@@ -36,6 +36,7 @@ namespace Application.Mappings
 
             return new CustomerResponse()
             {
+                UserName = customer.UserName,
                 Id = customer.Id,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
@@ -53,8 +54,6 @@ namespace Application.Mappings
                 LastName = customer.LastName,
                 Dni = customer.Dni,
                 Email = customer.Email,
-                // Si en algún momento es necesario agregarlo
-                // UserType = customer.UserType
             }).ToList();
         }
     }

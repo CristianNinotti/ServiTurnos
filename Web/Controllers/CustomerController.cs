@@ -35,6 +35,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize(Policy = "CustomerOnly")]
     public ActionResult<CustomerResponse?> GetCustomerById([FromRoute] int id)
     {
         var response = _customerService.GetCustomerById(id);
@@ -48,6 +49,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpPost]
+    
     public IActionResult CreateCustomer([FromBody] CustomerRequest customer)
     {
         _customerService.CreateCustomer(customer);
@@ -55,12 +57,15 @@ public class CustomerController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Policy = "CustomerOnly")]
     public ActionResult<bool> UpdateCustomer([FromRoute] int id, [FromBody] CustomerRequest customer)
     {
         return Ok(_customerService.UpdateCustomer(id, customer));
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Policy = "CustomerOnly")]
+    [Authorize(Policy = "SuperAdminOnly")]
     public ActionResult<bool> DeleteCustomer([FromRoute] int id)
     {
         return Ok(_customerService.DeleteCustomer(id));

@@ -35,6 +35,7 @@ public class SuperAdminController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize(Policy = "SuperAdminOnly")]
     public ActionResult<SuperAdminResponse?> GetSuperAdminById([FromRoute] int id)
     {
         var response = _superAdminService.GetSuperAdminById(id);
@@ -55,12 +56,14 @@ public class SuperAdminController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Policy = "SuperAdminOnly")]
     public ActionResult<bool> UpdateSuperAdmin([FromRoute] int id, [FromBody] SuperAdminRequest superAdmin)
     {
         return Ok(_superAdminService.UpdateSuperAdmin(id, superAdmin));
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Policy = "SuperAdminOnly")]
     public ActionResult<bool> DeleteSuperAdmin([FromRoute] int id)
     {
         return Ok(_superAdminService.DeleteSuperAdmin(id));

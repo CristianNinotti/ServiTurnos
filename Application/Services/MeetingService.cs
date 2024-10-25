@@ -9,8 +9,8 @@ namespace Application.Services
     public class MeetingService : IMeetingService
     {
         private readonly IMeetingRepository _meetingRepository;
-        private readonly ICustomerRepository _customerRepository;  // Esta es para poder manejar el pasaje de datos de Customer
-        private readonly IProfessionalRepository _professionalRepository;  // Esta para poder manejar el pasaje de datos de Professional
+        private readonly ICustomerRepository _customerRepository;  
+        private readonly IProfessionalRepository _professionalRepository;  
 
         public MeetingService(IMeetingRepository meetingRepository,
                               ICustomerRepository customerRepository,

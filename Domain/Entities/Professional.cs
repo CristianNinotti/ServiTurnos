@@ -13,6 +13,6 @@ namespace Domain.Entities
             TypeCustomer = "Professional";
         }
 
-        // public float Calification {  get; set; }
+        
     }
 }

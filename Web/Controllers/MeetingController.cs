@@ -18,7 +18,9 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Policy = "CustomerOnly")]
+        [Authorize(Policy = "SuperAdminOnly")]
+        [Authorize(Policy = "ProfessionalOnly")]
         public IActionResult GetAllMeetings()
         {
             var response = _meetingService.GetAllMeetings();
@@ -32,6 +34,9 @@ namespace Web.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = "CustomerOnly")]
+        [Authorize(Policy = "SuperAdminOnly")]
+        [Authorize(Policy = "ProfessionalOnly")]
         public ActionResult<MeetingResponse?> GetMeetingById([FromRoute] int id)
         {
             var response = _meetingService.GetMeetingById(id);
@@ -45,6 +50,9 @@ namespace Web.Controllers
         }
 
         [HttpGet("professional/{professionalId}")]
+        [Authorize(Policy = "CustomerOnly")]
+        [Authorize(Policy = "SuperAdminOnly")]
+        
         public IActionResult GetMeetingsByProfessional([FromRoute] int professionalId)
         {
             var response = _meetingService.GetMeetingsByProfessional(professionalId);
@@ -52,6 +60,9 @@ namespace Web.Controllers
         }
 
         [HttpGet("customer/{customerId}")]
+        
+        [Authorize(Policy = "SuperAdminOnly")]
+        [Authorize(Policy = "ProfessionalOnly")]
         public IActionResult GetMeetingsByCustomer([FromRoute] int customerId)
         {
             var response = _meetingService.GetMeetingsByCustomer(customerId);
@@ -59,6 +70,8 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+
+        [Authorize(Policy = "CustomerOnly")]
         public IActionResult CreateMeeting([FromBody] MeetingRequest meeting)
         {
             _meetingService.CreateMeeting(meeting);
@@ -66,12 +79,18 @@ namespace Web.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = "CustomerOnly")]
+        [Authorize(Policy = "SuperAdminOnly")]
+        [Authorize(Policy = "ProfessionalOnly")]
         public ActionResult<bool> UpdateMeeting([FromRoute] int id, [FromBody] MeetingRequest meeting)
         {
             return Ok(_meetingService.UpdateMeeting(id, meeting));
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "CustomerOnly")]
+        [Authorize(Policy = "SuperAdminOnly")]
+        [Authorize(Policy = "ProfessionalOnly")]
         public ActionResult<bool> DeleteMeeting([FromRoute] int id)
         {
             return Ok(_meetingService.DeleteMeeting(id));
