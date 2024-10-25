@@ -48,10 +48,8 @@ namespace Application.Services
 
         public List<ProfessionalResponse> GetProfessionalByProfession(Profession profession)
         {
-            // Obtener profesionales por profesión
             var professionals = _professionalRepository.GetProfessionalByProfession(profession);
 
-            // Lanzar una excepción si no se encontraron profesionales
             if (professionals == null || !professionals.Any())
             {
                 throw new InvalidOperationException($"No se encontraron profesionales con la profesión: {profession}");
