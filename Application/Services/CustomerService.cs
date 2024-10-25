@@ -25,19 +25,19 @@ namespace Application.Services
             try
             {
                 var customers = _customerRepository.GetAllCustomers();
-                
+
                 if (customers == null)
                 {
                     Console.WriteLine("No se encontraron clientes.");
-                    return new List<CustomerResponse>(); 
+                    return new List<CustomerResponse>();
                 }
 
-                return customers.Select(CustomerProfile.ToCustomerResponse).ToList(); 
+                return CustomerProfile.ToCustomerResponseList(customers);
             }
             catch (Exception e)
             {
                 Console.WriteLine("Hay un error en la clase: " + e.Message);
-                throw; 
+                throw;
             }
         }
 
