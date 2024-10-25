@@ -58,7 +58,7 @@ namespace Application.Services
 
             if (superAdminEntity != null)
             {
-                
+
                 if (!string.IsNullOrEmpty(superAdmin.UserName) && superAdmin.UserName != "string")
                 {
                     superAdminEntity.UserName = superAdmin.UserName;
@@ -88,11 +88,8 @@ namespace Application.Services
                 {
                     superAdminEntity.Email = superAdmin.Email;
                 }
-
-                
-            
-
                 _superAdminRepository.UpdateSuperAdmin(superAdminEntity);
+
                 return true;
             }
 

@@ -2,6 +2,7 @@
 using Application.Mappings;
 using Application.Models.Request;
 using Application.Models.Response;
+using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
 
@@ -55,9 +56,9 @@ namespace Application.Services
         public void CreateProfessional(ProfessionalRequest professional)
         {
             var professionalEntity = ProfessionalsProfile.ToProfessionalEntity(professional);
-
             _professionalRepository.AddProfessional(professionalEntity);
         }
+
 
         public bool UpdateProfessional(int id, ProfessionalRequest professional)
         {
@@ -97,8 +98,6 @@ namespace Application.Services
                 }
 
 
-             
-
                 _professionalRepository.UpdateProfessional(professionalEntity);
                 return true;
             }
@@ -122,4 +121,3 @@ namespace Application.Services
 
     }
 }
-

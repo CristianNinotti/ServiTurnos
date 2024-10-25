@@ -20,7 +20,7 @@ public class ProfessionalController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
+    [Authorize(Policy = "ProfessionalOnly")]
     public IActionResult GetAllProfessional()
     {
         var response = _professionalService.GetAllProfessional();

@@ -1,6 +1,5 @@
 ﻿using Application.Models.Request;
 using Application.Models.Response;
-using Domain.Entities;
 using DomainEntity = Domain.Entities;
 
 namespace Application.Mappings
@@ -16,8 +15,7 @@ namespace Application.Mappings
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Dni = request.Dni,
-                Email = request.Email
-                
+                Email = request.Email,
 
             };
         }
@@ -34,29 +32,24 @@ namespace Application.Mappings
             return new SuperAdminResponse()
             {
                 Id = superAdmin.Id,
-                UserName = superAdmin.UserName,
                 FirstName = superAdmin.FirstName,
                 LastName = superAdmin.LastName,
                 Dni = superAdmin.Dni,
                 Email = superAdmin.Email
-                
             };
         }
 
         public static List<SuperAdminResponse> ToSuperAdminResponse(List<DomainEntity.SuperAdmin> superAdmins)
         {
-            return superAdmins.Select(s => new SuperAdminResponse
+            return superAdmins.Select(c => new SuperAdminResponse
             {
-                Id = s.Id,
-                UserName = s.UserName,
-                FirstName = s.FirstName,
-                LastName = s.LastName,
-                Dni = s.Dni,
-                Email = s.Email
-                
+                Id = c.Id,
+                FirstName = c.FirstName,
+                LastName = c.LastName,
+                Dni = c.Dni,
+                Email = c.Email
 
             }).ToList();
         }
     }
 }
-

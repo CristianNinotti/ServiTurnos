@@ -1,6 +1,5 @@
 ﻿using Application.Models.Request;
 using Application.Models.Response;
-using Domain.Entities;
 using DomainEntity = Domain.Entities;
 
 namespace Application.Mappings
@@ -16,9 +15,8 @@ namespace Application.Mappings
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Dni = request.Dni,
-                Email = request.Email
-                
-
+                Email = request.Email,
+                TypeCustomer = "Customer" // Asegurarse de que el UserType se setee correctamente
             };
         }
 
@@ -31,30 +29,32 @@ namespace Application.Mappings
 
         public static CustomerResponse ToCustomerResponse(DomainEntity.Customer customer)
         {
+            if (customer == null)
+            {
+                throw new ArgumentNullException(nameof(customer), "El cliente no puede ser nulo.");
+            }
+
             return new CustomerResponse()
             {
                 Id = customer.Id,
-                UserName = customer.UserName,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Dni = customer.Dni,
                 Email = customer.Email
-                
             };
         }
 
-        public static List<CustomerResponse> ToCustomerResponse(List<DomainEntity.Customer> customers)
+        public static List<CustomerResponse> ToCustomerResponseList(List<DomainEntity.Customer> customers)
         {
-            return customers.Select(c => new CustomerResponse
+            return customers.Select(customer => new CustomerResponse
             {
-                Id = c.Id,
-                UserName = c.UserName,
-                FirstName = c.FirstName,
-                LastName = c.LastName,
-                Dni = c.Dni,
-                Email = c.Email
-                
-
+                Id = customer.Id,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Dni = customer.Dni,
+                Email = customer.Email,
+                // Si en algún momento es necesario agregarlo
+                // UserType = customer.UserType
             }).ToList();
         }
     }

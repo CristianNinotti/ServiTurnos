@@ -46,7 +46,7 @@ internal class Program
                 }
             });
         });
-        
+
         builder.Services.AddAuthentication("Bearer")
             .AddJwtBearer(options =>
             {
@@ -61,7 +61,17 @@ internal class Program
                 };
             }
         );
-        
+
+
+
+
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("CustomerOnly", policy => policy.RequireClaim("TypeCustomer", "Customer"));
+            options.AddPolicy("ProfessionalOnly", policy => policy.RequireClaim("TypeCustomer", "Professional"));
+            options.AddPolicy("SuperAdminOnly", policy => policy.RequireClaim("TypeCustomer", "SuperAdmin"));
+        });
+
 
         builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 

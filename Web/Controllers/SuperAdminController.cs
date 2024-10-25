@@ -21,7 +21,7 @@ public class SuperAdminController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
+    [Authorize(Policy = "SuperAdminOnly")]
     public IActionResult GetAllSuperAdmin()
     {
         var response = _superAdminService.GetAllSuperAdmins();

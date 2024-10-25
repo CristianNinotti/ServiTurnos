@@ -25,12 +25,19 @@ namespace Application.Services
             try
             {
                 var customers = _customerRepository.GetAllCustomers();
-                return CustomerProfile.ToCustomerResponse(customers);
+                // Verifica si customers es null
+                if (customers == null)
+                {
+                    Console.WriteLine("No se encontraron clientes.");
+                    return new List<CustomerResponse>(); // Retorna una lista vacía en lugar de null
+                }
+
+                return customers.Select(CustomerProfile.ToCustomerResponse).ToList(); // Usa LINQ para convertir la lista de DomainEntity.Customer a CustomerResponse
             }
             catch (Exception e)
             {
-                Console.WriteLine("Hay un error en la clase");
-                throw new Exception(e.Message);
+                Console.WriteLine("Hay un error en la clase: " + e.Message);
+                throw; // Vuelve a lanzar la excepción original
             }
         }
 
@@ -52,52 +59,23 @@ namespace Application.Services
             _customerRepository.AddCustomer(customerEntity);
         }
 
+
         public bool UpdateCustomer(int id, CustomerRequest customer)
         {
             var customerEntity = _customerRepository.GetCustomerById(id);
 
             if (customerEntity != null)
             {
-
-                if (!string.IsNullOrEmpty(customer.UserName) && customer.UserName != "string")
-                {
-                    customerEntity.UserName = customer.UserName;
-                }
-
-                if (!string.IsNullOrEmpty(customer.Password) && customer.Password != "string")
-                {
-                    customerEntity.Password = customer.Password;
-                }
-
-                if (!string.IsNullOrEmpty(customer.FirstName) && customer.FirstName != "string")
-                {
-                    customerEntity.FirstName = customer.FirstName;
-                }
-
-                if (!string.IsNullOrEmpty(customer.LastName) && customer.LastName != "string")
-                {
-                    customerEntity.LastName = customer.LastName;
-                }
-
-                if (customer.Dni != 0)
-                {
-                    customerEntity.Dni = customer.Dni;
-                }
-
-                if (!string.IsNullOrEmpty(customer.Email) && customer.Email != "string")
-                {
-                    customerEntity.Email = customer.Email;
-                }
-
-
- 
+                CustomerProfile.ToCustomerEntityUpdate(customerEntity, customer);
 
                 _customerRepository.UpdateCustomer(customerEntity);
+
                 return true;
             }
 
             return false;
         }
+
 
         public bool DeleteCustomer(int id)
         {

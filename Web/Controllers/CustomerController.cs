@@ -21,7 +21,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
+    [Authorize(Policy = "CustomerOnly")]
     public IActionResult GetAllCustomer()
     {
         var response = _customerService.GetAllCustomers();
