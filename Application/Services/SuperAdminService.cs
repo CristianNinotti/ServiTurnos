@@ -90,10 +90,7 @@ namespace Application.Services
                 }
 
                 
-                if (superAdmin.TypeCustomer != superAdminEntity.TypeCustomer)
-                {
-                    superAdminEntity.TypeCustomer = superAdmin.TypeCustomer;
-                }
+            
 
                 _superAdminRepository.UpdateSuperAdmin(superAdminEntity);
                 return true;

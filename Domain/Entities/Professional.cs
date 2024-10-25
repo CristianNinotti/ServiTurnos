@@ -9,6 +9,10 @@ namespace Domain.Entities
         public Profession Profession  { get; set; }
         public List<Meeting> Meetings { get; set; } = new List<Meeting>();
 
+        public Professional() {
+            TypeCustomer = "Professional";
+        }
+
         // public float Calification {  get; set; }
     }
 }

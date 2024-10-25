@@ -16,8 +16,8 @@ namespace Application.Mappings
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Dni = request.Dni,
-                Email = request.Email,
-                TypeCustomer = request.TypeCustomer
+                Email = request.Email
+                
 
             };
         }
@@ -38,8 +38,8 @@ namespace Application.Mappings
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Dni = customer.Dni,
-                Email = customer.Email,
-                TypeCustomer = customer.TypeCustomer
+                Email = customer.Email
+                
             };
         }
 
@@ -52,8 +52,8 @@ namespace Application.Mappings
                 FirstName = c.FirstName,
                 LastName = c.LastName,
                 Dni = c.Dni,
-                Email = c.Email,
-                TypeCustomer = c.TypeCustomer
+                Email = c.Email
+                
 
             }).ToList();
         }

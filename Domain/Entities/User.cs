@@ -9,6 +9,6 @@
         public string LastName { get; set; } = string.Empty;
         public int Dni { get; set; }
         public string Email { get; set; } = string.Empty;
-        public bool TypeCustomer { get; set; } //esto lo tenemos que pasar a String
+        public string TypeCustomer { get; set; } = string.Empty;
     }
 }

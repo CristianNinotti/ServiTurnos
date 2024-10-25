@@ -14,7 +14,7 @@ namespace Application.Models.Response
         public int Fee { get; set; }
         public List<Meeting> Meetings { get; set; } = new List<Meeting>();
         public Profession Profession { get; set; }
-        public bool TypeCustomer { get; set; }
+        
 
         // public float Calification {  get; set; }
     }

@@ -17,6 +17,6 @@ namespace Application.Models.Response
         public int Dni { get; set; }
         public string Email { get; set; } = string.Empty;
         public List<Meeting> Meetings { get; set; } = new List<Meeting>();
-        public bool TypeCustomer { get; set; }
+        
     }
 }

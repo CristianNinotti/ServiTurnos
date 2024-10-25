@@ -97,10 +97,7 @@ namespace Application.Services
                 }
 
 
-                if (professional.TypeCustomer != professionalEntity.TypeCustomer)
-                {
-                    professionalEntity.TypeCustomer = professional.TypeCustomer;
-                }
+             
 
                 _professionalRepository.UpdateProfessional(professionalEntity);
                 return true;

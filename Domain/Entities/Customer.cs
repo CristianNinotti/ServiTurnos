@@ -4,6 +4,9 @@
     public class Customer : User
     {
         public List<Meeting> Meetings { get; set; } = new List<Meeting>();
+        public Customer() {
+            TypeCustomer = "Customer";        
+        }
     }
 }
 

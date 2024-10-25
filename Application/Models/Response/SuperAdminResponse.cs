@@ -16,6 +16,6 @@ namespace Application.Models.Response
         public string LastName { get; set; } = string.Empty;
         public int Dni { get; set; }
         public string Email { get; set; } = string.Empty;
-        public bool TypeCustomer { get; set; }
+        
     }
 }

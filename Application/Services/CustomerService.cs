@@ -90,10 +90,7 @@ namespace Application.Services
                 }
 
 
-                if (customer.TypeCustomer != customer.TypeCustomer)
-                {
-                    customerEntity.TypeCustomer = customer.TypeCustomer;
-                }
+ 
 
                 _customerRepository.UpdateCustomer(customerEntity);
                 return true;
