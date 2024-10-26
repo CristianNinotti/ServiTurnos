@@ -12,7 +12,7 @@ namespace Application.Models.Response
         public int Dni { get; set; }
         public string Email { get; set; } = string.Empty;
         public int Fee { get; set; }
-        //public List<Meeting> Meetings { get; set; } = new List<Meeting>();
+        
         public Profession Profession { get; set; }
         
 

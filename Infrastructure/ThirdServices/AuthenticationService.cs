@@ -36,7 +36,7 @@ public class AuthenticationService : IAuthenticationService
         
         User? user = null;
 
-        // Aca buscamos en el repo de profesionales
+        
         var professionals = _professionalRepository.GetProfessional();
         user = professionals.FirstOrDefault(x =>
             x.UserName.Equals(authenticationRequest.UserName) &&
@@ -45,7 +45,7 @@ public class AuthenticationService : IAuthenticationService
         if (user != null)
             return user;
 
-        // Aca buscamos en el repo de clientes
+        
         var customers = _customerRepository.GetAllCustomers(); 
         user = customers.FirstOrDefault(x =>
             x.UserName.Equals(authenticationRequest.UserName) &&
@@ -54,7 +54,7 @@ public class AuthenticationService : IAuthenticationService
         if (user != null)
             return user;
 
-        // Aca buscamos en el repo de superadmin
+        
         var superAdmins = _superAdminRepository.GetAllSuperAdmins(); 
         user = superAdmins.FirstOrDefault(x =>
             x.UserName.Equals(authenticationRequest.UserName) &&

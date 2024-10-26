@@ -2,7 +2,6 @@
 using Application.Mappings;
 using Application.Models.Request;
 using Application.Models.Response;
-using Domain.Entities;
 using Domain.Enum;
 using Domain.Interfaces;
 
