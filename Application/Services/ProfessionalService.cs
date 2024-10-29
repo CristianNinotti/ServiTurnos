@@ -12,10 +12,12 @@ namespace Application.Services
     public class ProfessionalService : IProfessionalService
     {
         private readonly IProfessionalRepository _professionalRepository;
+        private readonly IMeetingService _meetingService;
 
-        public ProfessionalService(IProfessionalRepository professionalRepository)
+        public ProfessionalService(IProfessionalRepository professionalRepository, IMeetingService meetingService)
         {
             _professionalRepository = professionalRepository;
+            _meetingService = meetingService;
         }
 
         public List<ProfessionalResponse> GetAllProfessional()
@@ -114,6 +116,14 @@ namespace Application.Services
 
             if (professional != null)
             {
+                
+                var meetings = _meetingService.GetMeetingsByProfessional(id);
+                foreach (var meeting in meetings)
+                {
+                    _meetingService.DeleteMeeting(meeting.Id); 
+                }
+
+                
                 _professionalRepository.DeleteProfessional(professional);
 
                 return true;

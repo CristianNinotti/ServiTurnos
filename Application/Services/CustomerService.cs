@@ -14,10 +14,12 @@ namespace Application.Services
     public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository _customerRepository;
+        private readonly IMeetingService _meetingService;
 
-        public CustomerService(ICustomerRepository customerRepository)
+        public CustomerService(ICustomerRepository customerRepository, IMeetingService meetingService)
         {
             _customerRepository = customerRepository;
+            _meetingService = meetingService;
         }
 
         public List<CustomerResponse> GetAllCustomers()
@@ -112,6 +114,14 @@ namespace Application.Services
 
             if (customer != null)
             {
+                
+                var meetings = _meetingService.GetMeetingsByCustomer(id);
+                foreach (var meeting in meetings)
+                {
+                    _meetingService.DeleteMeeting(meeting.Id); 
+                }
+
+                
                 _customerRepository.DeleteCustomer(customer);
 
                 return true;
