@@ -16,8 +16,12 @@ public class MeetingRepository : IMeetingRepository
 
     public List<Meeting> GetMeetings()
     {
-        return _context.Meetings.ToList();
+        return _context.Meetings
+            .Include(meeting => meeting.Customer)
+            .Include(meeting => meeting.Professional)
+            .ToList();
     }
+
 
     public Meeting? GetMeetingById(int id)
     {
@@ -29,12 +33,20 @@ public class MeetingRepository : IMeetingRepository
 
     public List<Meeting> GetMeetingsByProfessional(int professionalId)
     {
-        return _context.Meetings.Where(meeting => meeting.Professional.Id == professionalId).ToList();
+        return _context.Meetings
+            .Include(meeting => meeting.Customer)
+            .Include(meeting => meeting.Professional)
+            .Where(meeting => meeting.Professional.Id == professionalId)
+            .ToList();
     }
 
     public List<Meeting> GetMeetingsByCustomer(int customerId)
     {
-        return _context.Meetings.Where(meeting => meeting.Customer.Id == customerId).ToList();
+        return _context.Meetings
+            .Include(meeting => meeting.Customer)
+            .Include(meeting => meeting.Professional)
+            .Where(meeting => meeting.Customer.Id == customerId)
+            .ToList();
     }
 
     public void AddMeeting(Meeting entity)
