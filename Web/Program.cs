@@ -62,6 +62,18 @@ internal class Program
             }
         );
 
+        // Habilitacion de Cors (Para permitir coneccion desde front a back)
+        // (Cross-Origin Resource Sharing
+        //  es una política de seguridad en los navegadores que permite o restringe que un frontend
+        //  (cliente) en un dominio realice peticiones a un backend (servidor) que se encuentra en un dominio diferente.
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll",
+                builder => builder.AllowAnyOrigin()
+                                  .AllowAnyMethod()
+                                  .AllowAnyHeader());
+        });
 
 
 
