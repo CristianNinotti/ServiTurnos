@@ -124,6 +124,10 @@ internal class Program
 
         app.UseAuthentication();
 
+        // La línea app.UseCors("AllowAll"); en tu configuración de ASP.NET Core 
+        // permite habilitar CORS en el servidor y aplicar una política de CORS específica 
+        //llamada "AllowAll". Esto es parte de cómo ASP.NET maneja las políticas de acceso entre orígenes (dominios).
+        app.UseCors("AllowAll");
         app.UseAuthorization();
 
         app.MapControllers();
