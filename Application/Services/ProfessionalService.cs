@@ -102,6 +102,11 @@ namespace Application.Services
                     professionalEntity.Email = professional.Email;
                 }
 
+                if (professional.Fee != 0)
+                {
+                    professionalEntity.Fee = professional.Fee;
+                }
+
 
                 _professionalRepository.UpdateProfessional(professionalEntity);
                 return true;
