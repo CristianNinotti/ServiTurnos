@@ -53,7 +53,7 @@ public class CustomerController : ControllerBase
     public IActionResult CreateCustomer([FromBody] CustomerRequest customer)
     {
         _customerService.CreateCustomer(customer);
-        return Ok();
+        return Ok("Usuario creado con éxito");
     }
 
     [HttpPut("{id}")]

@@ -58,7 +58,7 @@ public class ProfessionalController : ControllerBase
     public IActionResult CreateProfessional([FromBody] ProfessionalRequest professional)
     {
         _professionalService.CreateProfessional(professional);
-        return Ok();
+        return Ok("Profesional creado con éxito");
     }
 
     [HttpPut("{id}")]

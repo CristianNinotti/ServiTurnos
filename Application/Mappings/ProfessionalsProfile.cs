@@ -33,6 +33,7 @@ namespace Application.Mappings
             return new ProfessionalResponse()
             {
                 UserName = professional.UserName,
+                Password = professional.Password,
                 Id = professional.Id,
                 FirstName = professional.FirstName,
                 LastName = professional.LastName,

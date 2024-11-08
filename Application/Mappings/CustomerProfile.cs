@@ -16,7 +16,7 @@ namespace Application.Mappings
                 LastName = request.LastName,
                 Dni = request.Dni,
                 Email = request.Email,
-                TypeCustomer = "Customer" 
+                TypeCustomer = "Customer"
             };
         }
 
@@ -31,6 +31,7 @@ namespace Application.Mappings
             return new CustomerResponse()
             {
                 UserName = customer.UserName,
+                Password = customer.Password,
                 Id = customer.Id,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
