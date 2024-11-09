@@ -47,11 +47,21 @@ public class ProfessionalController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("profession/{profession}")]
+    [HttpGet("profession/{professionId}")]
     [Authorize(Policy = "CustomerOrProfessionalOrSuperAdmin")]
-    public IActionResult GetProfessionalByProfession(Profession profession)
+    public IActionResult GetProfessionalByProfession(int professionId)
     {
-        return Ok(_professionalService.GetProfessionalByProfession(profession));
+        // Convierte el ID numérico al enum Profession
+        if (!Enum.IsDefined(typeof(Profession), professionId))
+        {
+            return BadRequest("El valor de profesión no es válido.");
+        }
+
+        var profession = (Profession)professionId;
+        Console.WriteLine("Profesión recibida en el backend: " + profession); // Verificar el valor recibido
+
+        var result = _professionalService.GetProfessionalByProfession(profession);
+        return Ok(result);
     }
 
     [HttpPost]

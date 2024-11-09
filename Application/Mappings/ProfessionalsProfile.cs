@@ -20,7 +20,8 @@ namespace Application.Mappings
                 Email = request.Email,
                 Fee = request.Fee,
                 Profession = (Profession)request.Profession,
-
+                Phone = request.Phone,
+                Address = request.Address
             };
 
 
@@ -40,7 +41,9 @@ namespace Application.Mappings
                 Fee = professional.Fee,
                 Profession = professional.Profession,
                 Dni = professional.Dni,
-                Email = professional.Email
+                Email = professional.Email,
+                Phone = professional.Phone,
+                Address = professional.Address
 
             };
         }
@@ -56,7 +59,9 @@ namespace Application.Mappings
                 Dni = p.Dni,
                 Fee = p.Fee,
                 Profession = p.Profession,
-                Email = p.Email
+                Email = p.Email,
+                Phone = p.Phone,
+                Address = p.Address
             }).ToList();
         }
     }

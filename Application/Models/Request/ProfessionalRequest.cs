@@ -13,7 +13,9 @@ namespace Application.Models.Request
         public int Fee { get; set; }
         public int Profession { get; set; }
 
+        public string Phone { get; set; } = string.Empty;
 
+        public string Address { get; set; } = string.Empty;
 
     }
 

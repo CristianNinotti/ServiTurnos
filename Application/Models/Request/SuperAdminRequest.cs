@@ -15,6 +15,6 @@ namespace Application.Models.Request
         public string LastName { get; set; } = string.Empty;
         public int Dni { get; set; }
         public string Email { get; set; } = string.Empty;
-        
+
     }
 }
