@@ -47,7 +47,7 @@ public class ProfessionalController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("profession")]
+    [HttpGet("profession/{profession}")]
     [Authorize(Policy = "CustomerOrProfessionalOrSuperAdmin")]
     public IActionResult GetProfessionalByProfession(Profession profession)
     {
