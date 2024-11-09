@@ -71,7 +71,7 @@ public class AuthenticationService : IAuthenticationService
 
         if (user == null)
         {
-            throw new Exception("Authentication failed");
+            throw new UnauthorizedAccessException("Authentication failed");
         }
 
         var securityPassword = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_options.SecretForKey));
