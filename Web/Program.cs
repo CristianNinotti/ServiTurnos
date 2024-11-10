@@ -16,12 +16,25 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddControllers();
+        // Configuración de controladores con opciones JSON
+        builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+                options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+                options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+                options.JsonSerializerOptions.WriteIndented = true;
+            });
+
         builder.Services.AddEndpointsApiExplorer();
 
+        // Configuración de DbContext
         builder.Services.AddDbContext<ServiTurnosDbContext>(x => x.UseSqlite(builder.Configuration.GetConnectionString("ServiTurnosDbConnection")));
+
+        // Configuración de autenticación
         builder.Services.Configure<AuthenticationServiceOptions>(builder.Configuration.GetSection("AuthenticationServiceOptions"));
 
+        // Configuración de Swagger
         builder.Services.AddSwaggerGen(setupAction =>
         {
             setupAction.AddSecurityDefinition("ServiTurnosApiBearerAuth", new OpenApiSecurityScheme()
@@ -47,6 +60,7 @@ internal class Program
             });
         });
 
+        // Configuración de autenticación con JWT
         builder.Services.AddAuthentication("Bearer")
             .AddJwtBearer(options =>
             {
@@ -62,11 +76,7 @@ internal class Program
             }
         );
 
-        // Habilitacion de Cors (Para permitir coneccion desde front a back)
-        // (Cross-Origin Resource Sharing
-        //  es una política de seguridad en los navegadores que permite o restringe que un frontend
-        //  (cliente) en un dominio realice peticiones a un backend (servidor) que se encuentra en un dominio diferente.
-
+        // Configuración de CORS
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("AllowAll",
@@ -75,8 +85,7 @@ internal class Program
                                   .AllowAnyHeader());
         });
 
-
-
+        // Configuración de políticas de autorización
         builder.Services.AddAuthorization(options =>
         {
             options.AddPolicy("CustomerOnly", policy => policy.RequireClaim("TypeCustomer", "Customer"));
@@ -100,9 +109,8 @@ internal class Program
                   context.User.HasClaim("TypeCustomer", "SuperAdmin")));
         });
 
-
+        // Configuración de servicios de aplicación e infraestructura
         builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-
         builder.Services.AddScoped<IProfessionalRepository, ProfessionalRepository>();
         builder.Services.AddScoped<IProfessionalService, ProfessionalService>();
         builder.Services.AddScoped<IMeetingService, MeetingService>();
@@ -114,6 +122,7 @@ internal class Program
 
         var app = builder.Build();
 
+        // Configuración de middleware
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -124,10 +133,9 @@ internal class Program
 
         app.UseAuthentication();
 
-        // La línea app.UseCors("AllowAll"); en tu configuración de ASP.NET Core 
-        // permite habilitar CORS en el servidor y aplicar una política de CORS específica 
-        //llamada "AllowAll". Esto es parte de cómo ASP.NET maneja las políticas de acceso entre orígenes (dominios).
+        // Habilitación de CORS
         app.UseCors("AllowAll");
+
         app.UseAuthorization();
 
         app.MapControllers();

@@ -68,13 +68,21 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-
         [Authorize(Policy = "CustomerOnly")]
         public IActionResult CreateMeeting([FromBody] MeetingRequest meeting)
         {
+            Console.WriteLine("Fecha y hora recibida: " + meeting.Date);
+
+            if (meeting.Date == DateTime.MinValue)
+            {
+                Console.WriteLine("Error: La fecha no se ha recibido correctamente.");
+                return BadRequest("Formato de fecha incorrecto");
+            }
+
             _meetingService.CreateMeeting(meeting);
             return Ok();
         }
+
 
         [HttpPut("{id}")]
         [Authorize(Policy = "CustomerOrProfessionalOrSuperAdmin")]
