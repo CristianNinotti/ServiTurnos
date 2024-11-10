@@ -21,7 +21,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Policy = "CustomerOrSuperAdmin")]
+    [Authorize(Policy = "CustomerOrProfessionalOrSuperAdmin")]
     public IActionResult GetAllCustomer()
     {
         var response = _customerService.GetAllCustomers();
@@ -35,7 +35,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize(Policy = "CustomerOrSuperAdmin")]
+    [Authorize(Policy = "CustomerOrProfessionalOrSuperAdmin")]
     public ActionResult<CustomerResponse?> GetCustomerById([FromRoute] int id)
     {
         var response = _customerService.GetCustomerById(id);

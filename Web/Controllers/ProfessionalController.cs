@@ -20,7 +20,7 @@ public class ProfessionalController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Policy = "ProfessionalOrSuperAdmin")]
+    [Authorize(Policy = "CustomerOrProfessionalOrSuperAdmin")]
     public IActionResult GetAllProfessional()
     {
         var response = _professionalService.GetAllProfessional();
@@ -34,7 +34,7 @@ public class ProfessionalController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize(Policy = "ProfessionalOrSuperAdmin")]
+    [Authorize(Policy = "CustomerOrProfessionalOrSuperAdmin")]
     public ActionResult<ProfessionalResponse?> GetProfessionalById([FromRoute] int id)
     {
         var response = _professionalService.GetProfessionalById(id);

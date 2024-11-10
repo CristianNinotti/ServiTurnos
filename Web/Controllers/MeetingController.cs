@@ -48,7 +48,7 @@ namespace Web.Controllers
         }
 
         [HttpGet("professional/{professionalId}")]
-        [Authorize(Policy = "CustomerOrSuperAdmin")]
+        [Authorize(Policy = "CustomerOrProfessionalOrSuperAdmin")]
 
         
         public IActionResult GetMeetingsByProfessional([FromRoute] int professionalId)
@@ -59,7 +59,7 @@ namespace Web.Controllers
 
         [HttpGet("customer/{customerId}")]
         
-        [Authorize(Policy = "ProfessionalOrSuperAdmin")]
+        [Authorize(Policy = "CustomerOrProfessionalOrSuperAdmin")]
 
         public IActionResult GetMeetingsByCustomer([FromRoute] int customerId)
         {
